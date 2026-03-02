@@ -1,1 +1,1 @@
-SELECT * FROM clientes ORDER BY nombre;
+
