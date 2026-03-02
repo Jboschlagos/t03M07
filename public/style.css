@@ -1,74 +1,7 @@
-/* Reset básico */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background: #f0f2f5;
-  padding: 20px;
-}
-
-h1 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 24px;
-}
-
-/* Grilla de 2 columnas */
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-/* Tarjeta de cada formulario */
-.card {
-  background: white;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-h2 {
-  color: #444;
-  font-size: 16px;
-  border-bottom: 2px solid #4a90d9;
-  padding-bottom: 8px;
-}
-
-input {
-  padding: 8px 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-button {
-  padding: 9px;
-  background: #4a90d9;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-button:hover {
-  background: #357abd;
-}
-
 /* Mensajes de respuesta */
 .mensaje {
   font-size: 13px;
-  padding: 6px;
+  padding: 6px 10px;
   border-radius: 4px;
 }
 
@@ -83,74 +16,61 @@ button:hover {
 }
 
 /* Tabla de resultados */
-table {
+#tabla-container table {
   width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-  margin-top: 8px;
+  font-size: 14px;
 }
 
-th {
-  background: #4a90d9;
+/* Estilos para las tecnologías del Footer */
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  font-weight: 500;
+  border-radius: 50px;
+  transition: transform 0.2s;
+}
+
+.badge:hover {
+  transform: scale(1.05);
+}
+
+/* Colores Corporativos */
+.tech-node {
+  background-color: #339933;
   color: white;
-  padding: 8px;
-  text-align: left;
 }
-
-td {
-  padding: 7px 8px;
-  border-bottom: 1px solid #eee;
+.tech-express {
+  background-color: #000000;
+  color: white;
 }
-
-tr:hover td {
-  background: #f5f5f5;
+.tech-postgres {
+  background-color: #336791;
+  color: white;
 }
-
-/* Encabezado */
-header {
-  max-width: 900px;
-  margin: 0 auto 24px auto;
+.tech-pg {
+  background-color: #336791;
+  color: white;
+  opacity: 0.8;
 }
-
-.descripcion {
-  background: white;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 16px;
+.tech-bootstrap {
+  background-color: #7952b3;
+  color: white;
 }
-
-.descripcion h3 {
-  color: #4a90d9;
-  font-size: 15px;
+.tech-html {
+  background-color: #e34f26;
+  color: white;
 }
-
-.descripcion p {
-  font-size: 14px;
-  color: #555;
-  line-height: 1.6;
+.tech-css {
+  background-color: #1572b6;
+  color: white;
 }
-
-/* Footer */
-footer {
-  max-width: 900px;
-  margin: 30px auto 0 auto;
-  text-align: center;
-  padding: 16px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  font-size: 14px;
-  color: #555;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+.tech-js {
+  background-color: #f7df1e;
+  color: black;
 }
-
-.tecnologias {
-  color: #4a90d9;
-  font-size: 13px;
+.tech-thunder {
+  background-color: #7500e3;
+  color: white;
 }

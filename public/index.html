@@ -4,81 +4,327 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CRUD Clientes</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Nuestro CSS personalizado -->
     <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
     <!-- ENCABEZADO -->
-    <header>
-      <h1>Gestión de Clientes</h1>
-      <div class="descripcion">
-        <h3>Descripción del proyecto</h3>
-        <p>
-          Se solicitó implementar un servidor web en Node.js con acceso a una
-          base de datos PostgreSQL mediante consultas parametrizadas con la
-          librería <strong>pg</strong>. El sistema expone cuatro endpoints REST
-          que permiten crear, consultar, modificar y eliminar clientes desde una
-          tabla con campos <strong>rut</strong>, <strong>nombre</strong> y
-          <strong>edad</strong>.
+    <div class="container mt-4">
+      <div class="card mb-4 border-primary">
+        <div class="card-body">
+          <h1 class="card-title text-primary">
+            <i class="bi bi-people-fill"></i> Gestión de Clientes
+          </h1>
+          <p class="card-text text-muted">
+            Ampliación del servidor REST en Node.js con filtros avanzados
+            mediante
+            <strong>query parameters</strong>. Permite consultar y eliminar
+            clientes por <strong>rut</strong>, <strong>edad exacta</strong>,
+            <strong>rango de edad</strong> y <strong>nombre o prefijo</strong>.
+            Backend desarrollado con <strong>Express</strong> y
+            <strong>pg</strong>, probado con <strong>Thunder Client</strong> y
+            consumido desde el frontend mediante <strong>fetch API</strong>.
+          </p>
+        </div>
+      </div>
+
+      <!-- FILA 1: CREAR + MODIFICAR -->
+      <div class="row g-4 mb-4">
+        <!-- CREAR -->
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header bg-success text-white">
+              <i class="bi bi-person-plus-fill"></i> Crear Cliente
+            </div>
+            <div class="card-body d-flex flex-column gap-2">
+              <input
+                id="crear-rut"
+                type="text"
+                class="form-control"
+                placeholder="RUT"
+              />
+              <input
+                id="crear-nombre"
+                type="text"
+                class="form-control"
+                placeholder="Nombre"
+              />
+              <input
+                id="crear-edad"
+                type="number"
+                class="form-control"
+                placeholder="Edad"
+              />
+              <button class="btn btn-success" onclick="crearCliente()">
+                <i class="bi bi-plus-circle"></i> Crear
+              </button>
+              <p id="crear-mensaje" class="mensaje mb-0"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODIFICAR -->
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header bg-warning text-dark">
+              <i class="bi bi-pencil-fill"></i> Modificar Nombre
+            </div>
+            <div class="card-body d-flex flex-column gap-2">
+              <input
+                id="modificar-rut"
+                type="text"
+                class="form-control"
+                placeholder="RUT"
+              />
+              <input
+                id="modificar-nombre"
+                type="text"
+                class="form-control"
+                placeholder="Nuevo nombre"
+              />
+              <button class="btn btn-warning" onclick="modificarCliente()">
+                <i class="bi bi-pencil"></i> Modificar
+              </button>
+              <p id="modificar-mensaje" class="mensaje mb-0"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FILA 2: FILTROS + RESULTADOS -->
+      <div class="row g-4 mb-4">
+        <!-- FILTROS CONSULTA -->
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-header bg-primary text-white">
+              <i class="bi bi-search"></i> Consultar Clientes
+            </div>
+            <div class="card-body d-flex flex-column gap-3">
+              <button class="btn btn-primary w-100" onclick="consultarTodos()">
+                <i class="bi bi-list-ul"></i> Ver todos
+              </button>
+
+              <div>
+                <label class="form-label text-muted small">Por RUT</label>
+                <div class="input-group">
+                  <input
+                    id="buscar-rut"
+                    type="text"
+                    class="form-control"
+                    placeholder="RUT"
+                  />
+                  <button
+                    class="btn btn-outline-primary"
+                    onclick="consultarPorRut()"
+                  >
+                    <i class="bi bi-search"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label class="form-label text-muted small"
+                  >Por edad exacta</label
+                >
+                <div class="input-group">
+                  <input
+                    id="buscar-edad"
+                    type="number"
+                    class="form-control"
+                    placeholder="Edad"
+                  />
+                  <button
+                    class="btn btn-outline-primary"
+                    onclick="consultarPorEdad()"
+                  >
+                    <i class="bi bi-search"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label class="form-label text-muted small"
+                  >Por rango de edad</label
+                >
+                <div class="input-group">
+                  <input
+                    id="buscar-edadMin"
+                    type="number"
+                    class="form-control"
+                    placeholder="Mín"
+                  />
+                  <input
+                    id="buscar-edadMax"
+                    type="number"
+                    class="form-control"
+                    placeholder="Máx"
+                  />
+                  <button
+                    class="btn btn-outline-primary"
+                    onclick="consultarPorRango()"
+                  >
+                    <i class="bi bi-search"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label class="form-label text-muted small"
+                  >Por nombre o prefijo</label
+                >
+                <div class="input-group">
+                  <input
+                    id="buscar-nombre"
+                    type="text"
+                    class="form-control"
+                    placeholder="Nombre"
+                  />
+                  <button
+                    class="btn btn-outline-primary"
+                    onclick="consultarPorNombre()"
+                  >
+                    <i class="bi bi-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RESULTADOS -->
+        <div class="col-md-8">
+          <div class="card h-100">
+            <div class="card-header bg-secondary text-white">
+              <i class="bi bi-table"></i> Resultados
+            </div>
+            <div class="card-body">
+              <div id="tabla-container">
+                <p class="text-muted">Los resultados aparecerán aquí.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FILA 3: ELIMINAR -->
+      <div class="row g-4 mb-4">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header bg-danger text-white">
+              <i class="bi bi-trash-fill"></i> Eliminar Clientes
+            </div>
+            <div class="card-body">
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label class="form-label text-muted small">Por RUT</label>
+                  <div class="input-group">
+                    <input
+                      id="eliminar-rut"
+                      type="text"
+                      class="form-control"
+                      placeholder="RUT"
+                    />
+                    <button class="btn btn-danger" onclick="eliminarPorRut()">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label text-muted small"
+                    >Por edad exacta</label
+                  >
+                  <div class="input-group">
+                    <input
+                      id="eliminar-edad"
+                      type="number"
+                      class="form-control"
+                      placeholder="Edad"
+                    />
+                    <button class="btn btn-danger" onclick="eliminarPorEdad()">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label text-muted small"
+                    >Por rango de edad</label
+                  >
+                  <div class="input-group">
+                    <input
+                      id="eliminar-edadMin"
+                      type="number"
+                      class="form-control"
+                      placeholder="Mín"
+                    />
+                    <input
+                      id="eliminar-edadMax"
+                      type="number"
+                      class="form-control"
+                      placeholder="Máx"
+                    />
+                    <button class="btn btn-danger" onclick="eliminarPorRango()">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <p id="eliminar-mensaje" class="mensaje mt-3 mb-0"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <footer class="text-center py-3 mb-4">
+        <p class="mb-1">
+          <strong>Jorge Bosch</strong> — Aprendiz Fullstack Javascript
         </p>
-        <p>
-          El backend fue desarrollado con <strong>Express</strong> aplicando
-          validaciones de entrada, manejo de errores y códigos HTTP correctos.
-          Los endpoints fueron probados individualmente con
-          <strong>Thunder Client</strong> antes de conectar el frontend. La
-          interfaz web consume los servicios mediante <strong>fetch API</strong>
-          y muestra los resultados en tiempo real.
+        <p class="small d-flex flex-wrap justify-content-center gap-2">
+          <span class="badge tech-node"
+            ><i class="bi bi-hexagon-fill"></i> Node.js</span
+          >
+          <span class="badge tech-express"
+            ><i class="bi bi-p-square-fill"></i> Express</span
+          >
+          <span class="badge tech-postgres"
+            ><i class="bi bi-database-fill"></i> PostgreSQL</span
+          >
+          <span class="badge tech-pg"><i class="bi bi-plugin"></i> pg</span>
+          <span class="badge tech-bootstrap"
+            ><i class="bi bi-bootstrap-fill"></i> Bootstrap 5</span
+          >
+          <span class="badge tech-html"
+            ><i class="bi bi-filetype-html"></i> HTML</span
+          >
+          <span class="badge tech-css"
+            ><i class="bi bi-filetype-css"></i> CSS</span
+          >
+          <span class="badge tech-js"
+            ><i class="bi bi-filetype-js"></i> JavaScript</span
+          >
+          <span class="badge tech-thunder"
+            ><i class="bi bi-lightning-charge-fill"></i> Thunder Client</span
+          >
         </p>
-      </div>
-    </header>
-
-    <!-- FORMULARIOS -->
-    <div class="grid">
-      <!-- FORMULARIO CREAR -->
-      <div class="card">
-        <h2>Crear Cliente</h2>
-        <input id="crear-rut" type="text" placeholder="RUT" />
-        <input id="crear-nombre" type="text" placeholder="Nombre" />
-        <input id="crear-edad" type="number" placeholder="Edad" />
-        <button onclick="crearCliente()">Crear</button>
-        <p id="crear-mensaje" class="mensaje"></p>
-      </div>
-
-      <!-- FORMULARIO CONSULTAR -->
-      <div class="card">
-        <h2>Consultar Todos</h2>
-        <button onclick="consultarClientes()">Actualizar Lista</button>
-        <div id="tabla-container"></div>
-      </div>
-
-      <!-- FORMULARIO MODIFICAR -->
-      <div class="card">
-        <h2>Modificar Nombre</h2>
-        <input id="modificar-rut" type="text" placeholder="RUT" />
-        <input id="modificar-nombre" type="text" placeholder="Nuevo nombre" />
-        <button onclick="modificarCliente()">Modificar</button>
-        <p id="modificar-mensaje" class="mensaje"></p>
-      </div>
-
-      <!-- FORMULARIO ELIMINAR -->
-      <div class="card">
-        <h2>Eliminar Cliente</h2>
-        <input id="eliminar-rut" type="text" placeholder="RUT" />
-        <button onclick="eliminarCliente()">Eliminar</button>
-        <p id="eliminar-mensaje" class="mensaje"></p>
-      </div>
+      </footer>
     </div>
 
-    <!-- FOOTER -->
-    <footer>
-      <p><strong>Jorge Bosch</strong> — Aprendiz Fullstack Javascript</p>
-      <p class="tecnologias">
-        Node.js &nbsp;|&nbsp; Express &nbsp;|&nbsp; PostgreSQL &nbsp;|&nbsp; pg
-        &nbsp;|&nbsp; HTML &nbsp;|&nbsp; CSS &nbsp;|&nbsp; JavaScript
-        &nbsp;|&nbsp; Thunder Client
-      </p>
-    </footer>
-
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
