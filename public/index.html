@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRUD Clientes</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- ENCABEZADO -->
+    <header>
+      <h1>Gestión de Clientes</h1>
+      <div class="descripcion">
+        <h3>Descripción del proyecto</h3>
+        <p>
+          Se solicitó implementar un servidor web en Node.js con acceso a una
+          base de datos PostgreSQL mediante consultas parametrizadas con la
+          librería <strong>pg</strong>. El sistema expone cuatro endpoints REST
+          que permiten crear, consultar, modificar y eliminar clientes desde una
+          tabla con campos <strong>rut</strong>, <strong>nombre</strong> y
+          <strong>edad</strong>.
+        </p>
+        <p>
+          El backend fue desarrollado con <strong>Express</strong> aplicando
+          validaciones de entrada, manejo de errores y códigos HTTP correctos.
+          Los endpoints fueron probados individualmente con
+          <strong>Thunder Client</strong> antes de conectar el frontend. La
+          interfaz web consume los servicios mediante <strong>fetch API</strong>
+          y muestra los resultados en tiempo real.
+        </p>
+      </div>
+    </header>
+
+    <!-- FORMULARIOS -->
+    <div class="grid">
+      <!-- FORMULARIO CREAR -->
+      <div class="card">
+        <h2>Crear Cliente</h2>
+        <input id="crear-rut" type="text" placeholder="RUT" />
+        <input id="crear-nombre" type="text" placeholder="Nombre" />
+        <input id="crear-edad" type="number" placeholder="Edad" />
+        <button onclick="crearCliente()">Crear</button>
+        <p id="crear-mensaje" class="mensaje"></p>
+      </div>
+
+      <!-- FORMULARIO CONSULTAR -->
+      <div class="card">
+        <h2>Consultar Todos</h2>
+        <button onclick="consultarClientes()">Actualizar Lista</button>
+        <div id="tabla-container"></div>
+      </div>
+
+      <!-- FORMULARIO MODIFICAR -->
+      <div class="card">
+        <h2>Modificar Nombre</h2>
+        <input id="modificar-rut" type="text" placeholder="RUT" />
+        <input id="modificar-nombre" type="text" placeholder="Nuevo nombre" />
+        <button onclick="modificarCliente()">Modificar</button>
+        <p id="modificar-mensaje" class="mensaje"></p>
+      </div>
+
+      <!-- FORMULARIO ELIMINAR -->
+      <div class="card">
+        <h2>Eliminar Cliente</h2>
+        <input id="eliminar-rut" type="text" placeholder="RUT" />
+        <button onclick="eliminarCliente()">Eliminar</button>
+        <p id="eliminar-mensaje" class="mensaje"></p>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <p><strong>Jorge Bosch</strong> — Aprendiz Fullstack Javascript</p>
+      <p class="tecnologias">
+        Node.js &nbsp;|&nbsp; Express &nbsp;|&nbsp; PostgreSQL &nbsp;|&nbsp; pg
+        &nbsp;|&nbsp; HTML &nbsp;|&nbsp; CSS &nbsp;|&nbsp; JavaScript
+        &nbsp;|&nbsp; Thunder Client
+      </p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
