@@ -225,26 +225,4 @@ router.put("/:rut", async (req, res) => {
 
 module.exports = router;
 
-/* 
-## Conceptos importantes de este código
 
-`async / await` es la forma moderna de manejar operaciones que toman tiempo, como consultar una base de datos. Sin esto, el servidor se quedaría esperando la respuesta de PostgreSQL sin poder atender otras peticiones.
-
-Sin async / await Con async / await
-──────────────────────────────────────────
-El servidor se bloquea   El servidor sigue
-esperando la consulta    atendiendo mientras
-                        espera la consulta
-    
-
-`try / catch` captura cualquier error que ocurra dentro del bloque. Es como un arnés de seguridad: si algo falla, el servidor responde con un mensaje controlado en lugar de caerse.
-
-`{ rows }` es desestructuración.La librería `pg` devuelve un objeto con varias propiedades, pero a nosotros solo nos interesa `rows` que contiene los registros de la consulta.
-
----
-
-## Prueba el endpoint
-
-Guarda con ** Ctrl + S ** y abre el navegador en:
-```
-http://localhost:3000/clientes */
